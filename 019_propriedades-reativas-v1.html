@@ -1,0 +1,37 @@
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<div id="app">
+    <p>{{ titulo }}</p>
+    <br>
+    <input type="text"
+        v-bind:value="titulo"
+        v-on:input="titulo = $event.target.value">    
+    <br>
+    <input type="text" v-model="titulo">
+</div>
+
+<script>
+    new Vue({
+        el: '#app', 
+        data: {
+            titulo: 'usando VueJS'
+        }
+    })
+</script>
+
+<!--
+ * Nota do arquivo: 
+    - A partir do template muda a instancia do vue
+    - No lugar de usar v-bind e v-on junto, é possível o v-model
+    - o v-model faz o two-way data bind
+        - uma via é do vue para o template
+        - outra via é do template para o vue
+        - o v-model faz o bind nas 2 direções
+    
+    Resumo:
+    - o v-bind é o bind de 1 direção: do javascript para o html
+    - o v-on pega um evento que aconteceu no template, ou seja,
+      no html, e pode fazer alguma ação para atualizar o dado da
+      instancia vue
+    - o v-model  faz nos 2 sentidos (2way-bind)
+-->

@@ -1,0 +1,82 @@
+<script src="https://unpkg.com/vue"></script>
+<div id="app">
+    <button v-on:click="aumentar">Aumentar</button>
+    <button v-on:click="contador2++">Aumentar 2</button>
+    <button v-on:click="diminuir">Diminuir</button>
+    <p>Contador: {{ contador }}</p>
+    <p>Contador 2: {{ contador2 }}</p>
+    <p>Resultado: {{ resultado }}</p>
+
+</div>
+<script>
+    new Vue({
+        el: '#app', 
+        data: {
+            contador: 0,
+            contador2: 0
+        },
+        computed:{
+            resultado(){
+                console.log('metodo computed resultado chamado')
+                return  this.contador >= 5 ? '>= que 5' : '< que 5'
+            }
+        },
+        watch:{
+            /* 
+            - No caso do watch tem que ter conflito
+            - Deve usar o mesmo nome da variável que vc quer monitorar
+            */
+            
+            /*
+            - O 1 parametro é o valor novo
+            - O 2 parametro é o antigo, sempre assim.
+            */
+            contador(novo, antigo){ 
+                setTimeout(() => { 
+                    this.contador = 0
+                }, 2000) 
+            }
+            /* Observação
+                Foi usado um Arrow function: () => { }.
+                Se usar o function() = { this.contador=0}
+                nao funcionaria pois neste caso não é um this léxico,
+                ele é um this que pode mudar de acordo com a chamada
+                e quem está chamando ele é o temporizador do javascript,
+                em suma, ele nao aponta para instancia do vue
+            */
+        },
+        methods: {
+            aumentar(){
+                this.contador++
+            },
+            diminuir(){
+                this.contador--
+                
+            },
+        }
+    })
+</script>
+<!--
+* Nota do arquivo:
+
+    - Watch
+        - monitora as mudanças de uma variável
+        - faz alguma em ação em resposta.
+        
+        - É diferente da propriedade computada pois na propriedade
+          computada o método tem que retornar algo síncrono,
+          ou seja, chamou a função template tem que estar pronto
+          para usar o retorno.
+
+        - Propriedades computadas são síncronas, ou seja,
+          chama e a funcao responde e o template está pronto
+          para usar o retorno
+        
+        - O watch não gera uma propriedade computada
+        - O watch monitora  as alterações de uma propriedade
+        
+        - Se precisar fazer uma chamada no servidor ele é bom,
+          pois vc pode usar para monitorar um combo box
+          como o de estado e cidades
+
+-->

@@ -1,0 +1,78 @@
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<style>
+    p{
+        border: 1px solid red
+    }
+    span{
+        border: 1px solid blue
+    }
+</style>
+
+<div id="app">
+
+    <p v-on:mousemove="atualizaXY">
+        Mouse: {{ x }} e {{ y }}
+        <span v-on:mousemove.stop="">
+            PARAR AQUI!!!!!
+        </span>
+</p> 
+<a v-on:click="naoNavegar" href="http://www.google.com">Google</a> 
+<!-- a funcao naoNavegar chamara o preventDefault-->
+<hr>
+<a v-on:click.prevent="" href="http://www.google.com">Google</a> 
+<!-- o modificador prevent não vai fazer que o link vá para o google, como padrão-->
+<hr>
+<a v-on:click.stop.prevent="" href="http://www.google.com">Google</a> 
+<!-- Posso combinar modificadores de evento-->
+
+<form v-on:click.prevent="" action="new">
+    <button type="submit">Enviar</button>
+</form>
+
+</div>
+
+<script>
+    new Vue({
+        el: '#app', 
+        data: {
+            x: 0,
+            y: 0
+        },
+        methods: {
+            atualizaXY(e){
+                this.x = e.clientX
+                this.y = e.clientY                
+            },
+            parar(e){
+                e.stopPropagation() 
+                /* Esta função para de propagar o evento do pai para o filho.
+                 Por padrão os eventos configurados no pai propagam no filho,
+                 com isso para a propagação. */
+            },
+            naoNavegar(e){
+                e.preventDefault()
+            }
+
+        },
+    })
+</script>
+<!--
+ * Nota do arquivo: 
+
+        MODIFICAR EVENTOS
+        - Por padrão os eventos dos pais propagam nos filhos
+            - usar o event.stopPropagation() para essa propagaçao
+        
+        - Outra forma é modificar os eventos
+             <span v-on:mousemove.stop="">
+                 - o stop é um modificador do evento
+        
+        - outro muito comum é o prevent, que previne o default
+            - <a v-on:click.prevent="" href="http://www.google.com">Google</a> 
+                - Nesse caso previne o caso padrão que é abrir o site.
+                 O comportamento padrão (click) foi previnido
+    
+    Link: https://br.vuejs.org/v2/guide/events.html#Modificadores-de-Evento
+        
+-->

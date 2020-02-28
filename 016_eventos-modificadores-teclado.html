@@ -1,0 +1,31 @@
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<div id="app">
+<!-- Eventos com teclado-->
+*: <input type="text" v-on:keyup="exibirAlerta"> 
+<!-- modificar de evento ENTER (só chama quando for apertado ENTER) --> <br>
+Enter: <input type="text" v-on:keyup.enter="exibirAlerta"> 
+<!-- modificar de evento ENTER  ALT (só chama quando for apertados ENTER + ALT) --> <br>
+Enter + ALT: <input type="text" v-on:keyup.enter.alt="exibirAlerta"> 
+</div>
+
+<script>
+    new Vue({
+        el: '#app', 
+        methods: {
+            exibirAlerta(){
+                alert('estou te alertando')
+            }
+        },
+    })
+</script>
+<!--
+ * Nota do arquivo: 
+
+- Modificador de evento do teclado:
+    - v-on:keyup.enter.alt
+    - modificou o keyup para funcioanr com o enter e alt
+
+Link: https://br.vuejs.org/v2/guide/events.html#Modificadores-de-Teclado
+
+-->

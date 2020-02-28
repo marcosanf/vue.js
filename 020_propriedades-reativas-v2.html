@@ -1,0 +1,80 @@
+<script src="https://unpkg.com/vue"></script>
+<div id="app">
+    <button v-on:click="aumentar">Aumentar</button>
+    <button v-on:click="contador2++">Aumentar 2</button>
+    <button v-on:click="diminuir">Diminuir</button>
+    <p>Contador: {{ contador }}</p>
+    <p>Contador 2: {{ contador2 }}</p>
+
+    <!--
+        <p>Resultado: {{ resultado() }}</p>  
+        em methods usa assim, com os parênteses.
+    -->  
+
+    <p>Resultado: {{ resultado }}</p>
+    <!--    
+        com a propriedade computada usa assim, sem parênteses
+    -->
+
+</div>
+
+<script>
+    new Vue({
+        el: '#app', 
+        data: {
+            contador: 0,
+            contador2: 0
+        },
+        computed:{
+            resultado(){
+                console.log('metodo computed resultado chamado')
+                return  this.contador >= 5 ? '>= que 5' : '< que 5'
+            }
+        },
+        methods: {
+            aumentar(){
+                console.log('metodo aumentar chamado')
+                this.contador++
+            },
+            diminuir(){
+                console.log('metodo diminuir chamado')
+                this.contador--                
+            },
+            /*resultado(){
+                console.log('metodo resultado chamado')
+                return  this.contador >= 5 ? '>= que 5' : '< que 5'
+            },*/
+        }
+    })
+</script>
+<!--
+* Nota do arquivo:
+
+    - Observe que se clicar no botão [Aumentar] o resultado será
+      chamado para atualizar
+
+    - O problema é que se eu clicar no botão [Aumentar 2]
+      para incrementar o contador2. O resultado também será chamado
+      e ele não tem nada a ver com isso.
+
+    - isso é ruim pq ele vai fazer um processamento desnecessário
+      a solução é usar o computed.
+
+    - Quando usa a propriedade computada (computed) não chama como uma
+      funcao e sim como um atributo: no lugar de resultado()
+      fica só resutlado
+   
+    - No exemplo com a propriedade computada será chamado só qdo clicar
+    no botao aumentar
+
+    - Se clicar no botao aumentar 2 o resultado nao será chamdo, pois:
+        - O vue entende que dentro do metodo computado, esse valor
+          que foi alterado não gera nenhum impacto na propriedade     computada
+        - Ele mantém uma cache nao precisa chamar de novo a função
+ 
+   - O vue consegue entender o que se trata a função e sabe quais
+     dados sao alteradas e não chama a funcao computada
+     de forma desnessária
+   
+
+-->

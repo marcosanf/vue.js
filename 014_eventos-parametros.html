@@ -1,0 +1,44 @@
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<div id="app">
+<p>{{ contador }}</p>
+ <!-- Passando parâmetros, -->
+<button v-on:click="somar(5, $event)">Somar 1</button>
+
+<!-- evento ON MOUSEMOVE, como o onmouseover -->
+<p v-on:mousemove="atualizaXY">Mouse: {{ x }} e {{ y }}</p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app', 
+        data: {
+            contador: 0,
+            x: 0,
+            y: 0
+        },
+        methods: {
+            somar(passo, e){
+                console.log(passo, e)
+                this.contador += passo
+            },
+            atualizaXY(e){
+                this.x = e.clientX
+                this.y = e.clientY                
+            }
+        },
+    })
+</script>
+<!--
+ * Nota do arquivo: 
+
+ - Note que no momento em que eu coloco meu parâmetro específico
+   na chamada da função, automaticamnete o evento não é passado
+   por padrão.
+
+ - Para passar o parâmetro event eu tenho que dizer que quero
+  usa-lo usando o caracter $ e a palavra reservada, nesse caso,
+  event fica $event
+
+ - não importa a ordem dos parametros
+-->
